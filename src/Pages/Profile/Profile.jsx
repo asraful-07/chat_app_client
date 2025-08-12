@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useAuth } from "../../Context/ContextProvider";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { FiCamera } from "react-icons/fi"; // camera icon
 
 const Profile = () => {
   const { authUser, setAuthUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [profilePic, setProfilePic] = useState("");
+  const [fullName, setFullName] = useState(authUser?.fullName || "");
+  const [email, setEmail] = useState(authUser?.email || "");
   const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
@@ -18,13 +21,14 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     try {
-      if (!profilePic) {
-        toast.error("Please select an image first!");
+      if (!fullName.trim() && !profilePic) {
+        toast.error("Please provide at least a name or an image!");
         return;
       }
       setLoading(true);
       const res = await axiosSecure.put("/auth/update-profile", {
         profilePic,
+        fullName,
       });
       setAuthUser(res.data.user);
       toast.success("Profile updated successfully!");
@@ -36,8 +40,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border">
-      <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border border-orange-300">
+      <h1 className="text-2xl font-bold mb-6 text-center text-orange-600">
         My Profile
       </h1>
 
@@ -51,13 +55,13 @@ const Profile = () => {
               "https://i.ibb.co/4pDNDk1/avatar.png"
             }
             alt="Profile"
-            className="w-36 h-36 object-cover rounded-full border-4 border-indigo-500 shadow-md"
+            className="w-36 h-36 object-cover rounded-full border-4 border-orange-500 shadow-md"
           />
           <label
             htmlFor="fileUpload"
-            className="absolute bottom-2 right-2 bg-indigo-600 text-white p-2 rounded-full shadow cursor-pointer hover:bg-indigo-700 transition"
+            className="absolute bottom-2 right-2 bg-orange-500 text-white p-2 rounded-full shadow cursor-pointer hover:bg-orange-600 transition"
           >
-            📷
+            <FiCamera size={20} />
           </label>
           <input
             type="file"
@@ -68,19 +72,28 @@ const Profile = () => {
           />
         </div>
 
-        {/* User Info */}
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-700">
-            {authUser?.fullName}
-          </h2>
-          <p className="text-gray-500 text-sm">{authUser?.email}</p>
-        </div>
+        {/* Name Field */}
+        <input
+          type="text"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+          placeholder="Full Name"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-orange-500"
+        />
+
+        {/* Email Field */}
+        <input
+          type="email"
+          value={email}
+          disabled
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-100 text-gray-500"
+        />
 
         {/* Update Button */}
         <button
           onClick={handleUpdate}
           disabled={loading}
-          className="w-full py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg font-semibold hover:from-indigo-600 hover:to-purple-600 transition-all disabled:opacity-50"
+          className="w-full py-2 px-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-all disabled:opacity-50"
         >
           {loading ? "Updating..." : "Update Profile"}
         </button>
