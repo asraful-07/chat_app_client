@@ -1,10 +1,11 @@
 import React from "react";
 import Chat from "../Chat/Chat";
+import TobBar from "../../Components/TobBar";
 
 const Home = () => {
   return (
     <div>
-      <h1>Home page</h1>
+      <TobBar />
       <Chat />
     </div>
   );

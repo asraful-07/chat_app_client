@@ -7,11 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 const MainLayout = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="min-h-[calc(100vh-232px)]">
         <Outlet />
       </div>
-      <h1>Footer</h1>
 
       {/* Toast Container */}
       <ToastContainer
