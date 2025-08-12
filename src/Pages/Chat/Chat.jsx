@@ -2,7 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../Context/ContextProvider";
 import { useSocket } from "../../Context/SocketProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { FiMoreVertical, FiSearch, FiPaperclip, FiMic } from "react-icons/fi";
+import {
+  FiMoreVertical,
+  FiSearch,
+  FiPaperclip,
+  FiMic,
+  FiArrowLeft,
+} from "react-icons/fi";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { BsEmojiSmile, BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -17,14 +23,8 @@ const Chat = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const messagesEndRef = useRef(null);
-
-  const handleSelectUser = (user) => {
-    setSelectedUser(user);
-    setIsSidebarOpen(false); // মোবাইলে চ্যাট সিলেক্ট করলে Sidebar বন্ধ হবে
-  };
 
   // Load contacts
   useEffect(() => {
@@ -221,11 +221,11 @@ const Chat = () => {
                     {messages.length > 0 &&
                       messages[messages.length - 1].text?.substring(0, 30)}
                   </p>
-                  {messages.length > 0 && (
+                  {/* {messages.length > 0 && (
                     <div className="bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                       1
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -242,9 +242,9 @@ const Chat = () => {
               {/* Back button for mobile */}
               <button
                 onClick={() => setSelectedUser(null)}
-                className="md:hidden mr-3"
+                className="md:hidden"
               >
-                ←
+                <FiArrowLeft size={22} />
               </button>
 
               <div className="relative">
@@ -312,7 +312,7 @@ const Chat = () => {
                       {formatTime(msg.createdAt)}
                     </span>
                     {msg.senderId === authUser._id && (
-                      <IoCheckmarkDone className="text-blue-500 text-sm" />
+                      <IoCheckmarkDone className="text-blue-600 text-sm" />
                     )}
                   </div>
                 </div>
