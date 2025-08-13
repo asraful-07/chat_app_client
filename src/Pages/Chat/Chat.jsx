@@ -156,7 +156,7 @@ const Chat = () => {
                     </span>
                   </div>
                 )}
-                <span className="ml-2 font-semibold">TalkApp</span>
+                <span className="ml-2 font-semibold"> {authUser.fullName}</span>
               </div>
             </Link>
 
@@ -182,7 +182,7 @@ const Chat = () => {
 
         {/* Contacts List */}
         <div className="flex-1 overflow-y-auto">
-          {filteredContacts.map((user) => (
+          {filteredContacts?.map((user) => (
             <div
               key={user._id}
               onClick={() => setSelectedUser(user)}
@@ -238,7 +238,7 @@ const Chat = () => {
         <div className="flex-1 flex flex-col">
           {/* Chat Header */}
           <div className="bg-orange-500 text-white p-3 flex justify-between items-center">
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               {/* Back button for mobile */}
               <button
                 onClick={() => setSelectedUser(null)}
