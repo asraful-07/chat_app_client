@@ -288,18 +288,18 @@ const Chat = () => {
                 key={i}
                 className={`mb-3 flex ${
                   msg.senderId === authUser._id
-                    ? "justify-end"
-                    : "justify-start"
+                    ? "justify-start"
+                    : "justify-end"
                 }`}
               >
                 <div
                   className={`max-w-xs p-2 rounded-lg relative ${
                     msg.senderId === authUser._id
-                      ? "bg-orange-100 rounded-tr-none"
-                      : "bg-white rounded-tl-none"
+                      ? "bg-white text-gray-800 rounded-tr-none"
+                      : "bg-orange-100 text-gray-800 rounded-tl-none"
                   }`}
                 >
-                  {msg.text && <p className="text-gray-800">{msg.text}</p>}
+                  {msg.text && <p>{msg.text}</p>}
                   {msg.image && msg.image !== "" && (
                     <img
                       src={msg.image}
@@ -311,7 +311,7 @@ const Chat = () => {
                     <span className="text-xs text-gray-500">
                       {formatTime(msg.createdAt)}
                     </span>
-                    {msg.senderId === authUser._id && (
+                    {msg.senderId !== authUser._id && (
                       <IoCheckmarkDone className="text-blue-600 text-sm" />
                     )}
                   </div>
