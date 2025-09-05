@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5001/api",
+  baseURL: "https://kotha-boli.onrender.com/api",
   withCredentials: true,
 });
 const useAxiosSecure = () => {

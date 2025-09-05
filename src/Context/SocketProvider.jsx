@@ -10,7 +10,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const newSocket = io("http://localhost:5001", {
+      const newSocket = io("https://kotha-boli.onrender.com", {
         query: { userId: authUser._id },
       });
       setSocket(newSocket);
