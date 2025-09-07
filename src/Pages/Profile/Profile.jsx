@@ -3,6 +3,7 @@ import { useAuth } from "../../Context/ContextProvider";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FiCamera } from "react-icons/fi"; // camera icon
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { authUser, setAuthUser } = useAuth();
@@ -11,6 +12,7 @@ const Profile = () => {
   const [fullName, setFullName] = useState(authUser?.fullName || "");
   const [email, setEmail] = useState(authUser?.email || "");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,6 +34,7 @@ const Profile = () => {
       });
       setAuthUser(res.data.user);
       toast.success("Profile updated successfully!");
+      navigate("/");
     } catch (err) {
       toast.error("Failed to update profile");
     } finally {

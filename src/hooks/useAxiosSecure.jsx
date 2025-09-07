@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: "https://kotha-boli.onrender.com/api",
+  baseURL: "http://localhost:5001/api",
   withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -10,6 +10,7 @@ const useAxiosSecure = () => {
 
 export default useAxiosSecure;
 
+// https://talk-app-45w3.onrender.com
 // https://chat-app-ngl4.onrender.com
 // https://talk-app-server.onrender.com
 // https://kotha-boli.onrender.com
